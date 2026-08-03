@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lsof -ti:3000 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(disown)",
+      "Bash(timeout 40 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done')",
+      "Bash(chromium-cli --session app)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000/packages)",
+      "Bash(curl -s http://localhost:3000/services)",
+      "Bash(curl -s http://localhost:3000/about)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/about)"
+    ]
+  }
+}

@@ -1,0 +1,283 @@
+@import "tailwindcss";
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dark: #8B6914;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark-card: #1A1A1A;
+  --dark-border: #2A2A2A;
+  --white: #FFFFFF;
+  --gray: #888888;
+  --gray-light: #CCCCCC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C97A 40%, #C9A84C 60%, #8B6914 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-bg {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C97A 50%, #C9A84C 100%);
+}
+
+.gold-border {
+  border: 1px solid var(--gold);
+}
+
+.card-dark {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
+.delay-600 { animation-delay: 0.6s; opacity: 0; }
+.delay-800 { animation-delay: 0.8s; opacity: 0; }
+
+.shimmer-text {
+  background: linear-gradient(90deg, #C9A84C 0%, #E8C97A 30%, #fff 50%, #E8C97A 70%, #C9A84C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin: 16px auto;
+}
+
+.nav-link {
+  color: var(--gray-light);
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--gold);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #C9A84C, #E8C97A, #C9A84C);
+  color: #0A0A0A;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.btn-gold:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-weight: 600;
+  padding: 13px 32px;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: #0A0A0A;
+}
+
+.package-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 40px 32px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+
+.package-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.package-card.featured {
+  border-color: var(--gold);
+}
+
+.stat-item {
+  text-align: center;
+  padding: 0 24px;
+}
+
+.testimonial-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 32px;
+  transition: border-color 0.3s;
+}
+
+.testimonial-card:hover {
+  border-color: var(--gold);
+}
+
+.service-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 32px;
+  transition: all 0.3s;
+}
+
+.service-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.step-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 auto 20px;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.4s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.03);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--dark-border);
+  padding: 24px 0;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item p {
+  color: var(--gray);
+  margin-top: 12px;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+footer {
+  background: #080808;
+  border-top: 1px solid var(--dark-border);
+}
+
+.desktop-nav { display: flex; }
+.mobile-btn { display: none; }
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.5rem !important; }
+  .hero-sub { font-size: 1rem !important; }
+  .packages-grid { grid-template-columns: 1fr !important; }
+  .services-grid { grid-template-columns: 1fr !important; }
+  .stats-row { flex-wrap: wrap; gap: 32px !important; }
+  .gallery-grid { grid-template-columns: 1fr 1fr !important; }
+  .steps-grid { grid-template-columns: 1fr 1fr !important; }
+  .testimonials-grid { grid-template-columns: 1fr !important; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .nav-links { display: none; }
+  .desktop-nav { display: none !important; }
+  .mobile-btn { display: block !important; }
+  .gallery-img { height: 180px !important; }
+  .hero-grid { padding-top: 120px !important; }
+  .quote-grid { grid-template-columns: 1fr !important; }
+  .quote-image-col { display: none; }
+  .instagram-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .contact-grid { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  section { padding: 60px 5% !important; }
+}
