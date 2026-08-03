@@ -255,6 +255,7 @@ footer {
 
 .desktop-nav { display: flex; }
 .mobile-btn { display: none; }
+.hero-bg-mobile { display: none; }
 
 @media (max-width: 768px) {
   .hero-title { font-size: 2.5rem !important; }
@@ -271,8 +272,9 @@ footer {
   .mobile-btn { display: block !important; }
   .gallery-img { height: 180px !important; }
   .hero-grid { padding-top: 120px !important; }
+  .hero-bg-desktop { display: none; }
+  .hero-bg-mobile { display: block; position: absolute; inset: 0; }
   .quote-grid { grid-template-columns: 1fr !important; }
-  .quote-image-col { display: none; }
   .instagram-grid { grid-template-columns: repeat(3, 1fr) !important; }
   .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
   .contact-grid { grid-template-columns: 1fr !important; }

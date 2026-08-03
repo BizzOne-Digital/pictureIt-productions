@@ -10,7 +10,8 @@ export default function Home() {
       {/* HERO */}
       <section style={{ position: "relative", overflow: "hidden", background: "#0A0A0A" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <img src="/hero.png" alt="hero background" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src="/hero.png" alt="hero background" className="hero-bg-desktop" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src="/mobile-bg.png" alt="hero background" className="hero-bg-mobile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.9) 100%)" }} />
         </div>
         <div style={{ position: "absolute", top: "10%", right: "8%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
