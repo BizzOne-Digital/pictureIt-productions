@@ -11,7 +11,30 @@
       "Bash(curl -s http://localhost:3000/services)",
       "Bash(curl -s http://localhost:3000/about)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/about)",
-      "Bash(git branch *)"
+      "Bash(git branch *)",
+      "WebFetch(domain:animaxia.com)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/122.0 Safari/537.36\" \"https://animaxia.com/dev/picture/\" -o /tmp/site.html -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(cygpath -w /tmp/site.html)",
+      "Bash(python3 -)",
+      "Bash(grep -v '^ *$')",
+      "Bash(grep -oE 'background-color:#[0-9a-fA-F]{3,6}' site.html)",
+      "Bash(grep -oE 'background:#[0-9a-fA-F]{3,6}' site.html)",
+      "Bash(curl -s \"https://animaxia.com/dev/picture/wp-content/uploads/elementor/css/post-6.css?ver=1785449115\" -o post-6.css)",
+      "Bash(grep -oE 'background-color:#[0-9a-fA-F]{3,6}' post-6.css)",
+      "Bash(grep -oE 'color:#[0-9a-fA-F]{3,6}' post-6.css)",
+      "Bash(curl -s \"https://animaxia.com/dev/picture/wp-content/uploads/elementor/css/post-28.css?ver=1785449116\" -o post-28.css)",
+      "Bash(grep -oE 'background-color:#[0-9a-fA-F]{3,8}' post-28.css)",
+      "Bash(grep -oE '\\(?<!background-\\)color:#[0-9a-fA-F]{3,8}' post-28.css)",
+      "Bash(curl -s \"https://animaxia.com/dev/picture/wp-content/uploads/elementor/css/post-153.css?ver=1785449116\" -o post-153.css)",
+      "Bash(curl -s \"https://animaxia.com/dev/picture/wp-content/uploads/elementor/css/post-23.css?ver=1785449116\" -o post-23.css)",
+      "Bash(grep -oE 'background-color:#[0-9a-fA-F]{3,8}' post-153.css)",
+      "Bash(grep -oE 'background-color:#[0-9a-fA-F]{3,8}' post-23.css)",
+      "Bash(grep -o '\\\\$399\\\\|\\\\$599\\\\|\\\\$799\\\\|packages-collage')",
+      "Bash(curl -s http://localhost:3000/gallery)",
+      "Bash(curl -s http://localhost:3000/ -o /tmp/home.html -w \"%{http_code} size=%{size_download}\\\\n\")",
+      "Bash(awk '{print $5}')",
+      "Bash(PORT=3500 npm run dev)",
+      "Bash(timeout 40 bash -c 'until curl -sf http://localhost:3500 >/dev/null; do sleep 1; done')"
     ]
   }
 }

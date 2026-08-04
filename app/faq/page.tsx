@@ -13,7 +13,7 @@ export default function FaqPage() {
   return (
     <>
       <PageHero eyebrow="FAQ" title="Frequently Asked" gold="Questions" />
-      <section style={{ padding: "40px 5% 100px", background: "#0A0A0A" }}>
+      <section style={{ padding: "40px 5% 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           {faqs.map((f, i) => (
             <Reveal key={i} delay={i * 80}>

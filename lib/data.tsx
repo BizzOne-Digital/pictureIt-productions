@@ -1,14 +1,20 @@
 import { IconCamera, Icon360, IconUsers, IconHeart, IconFacebook, IconInstagram, IconTiktok, IconDiamond, IconCrown, IconClock, IconMessage, IconImageFrame, IconTag, IconGallery, IconBook, IconVideo, IconPrinter, IconCarpet, IconBuilding, IconCheck } from "@/components/icons";
 
-export const navLinks = [
+export const mainNav = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Packages", href: "/packages" },
   { label: "Gallery", href: "/gallery" },
   { label: "Reviews", href: "/reviews" },
+];
+
+export const moreNav = [
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
+
+export const navLinks = [...mainNav.filter(l => l.label !== "Home"), ...moreNav];
 
 export const socialLinks = [
   { icon: <IconFacebook />, href: "https://www.facebook.com/people/Picture-It-Productions/61588676041830/" },
@@ -18,66 +24,62 @@ export const socialLinks = [
 
 export const packages = [
   {
-    name: "The Classic",
-    label: "Small Events & Intimate Celebrations",
-    price: "$499",
+    name: "Essential",
+    label: "Basic Package",
+    price: "$399",
+    duration: "2 Hours",
     icon: <IconCamera />,
     featured: false,
-    cta: "Book The Classic",
+    cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
-    image: "/packeg.png",
     features: [
-      { icon: <IconClock />, text: "2 Hours of Photobooth Service" },
-      { icon: <IconCamera />, text: "Unlimited Digital Photos" },
-      { icon: <IconMessage />, text: "Instant Sharing via SMS/Email" },
-      { icon: <IconImageFrame />, text: "Standard Backdrop" },
-      { icon: <IconTag />, text: "Fun Props Included" },
-      { icon: <IconTag />, text: "Custom Photo Template" },
-      { icon: <IconGallery />, text: "Online Event Gallery" },
+      { icon: <IconClock />, text: "2 hours of service" },
+      { icon: <IconImageFrame />, text: "Standard backdrop" },
+      { icon: <IconCamera />, text: "Unlimited digital photos" },
+      { icon: <IconTag />, text: "Basic props" },
+      { icon: <IconUsers />, text: "On-site attendant" },
+      { icon: <IconMessage />, text: "Instant sharing" },
+      { icon: <IconTag />, text: "Basic custom template" },
     ],
   },
   {
-    name: "The Signature",
-    label: "Weddings & Special Events",
-    price: "$799",
+    name: "Signature",
+    label: "Standard Package",
+    price: "$599",
+    duration: "3 Hours",
     icon: <IconDiamond />,
     featured: true,
-    cta: "Reserve Signature Package",
+    cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
-    image: "/packeg.png",
     features: [
-      { icon: <IconClock />, text: "4 Hours of Photobooth Service" },
-      { icon: <IconCamera />, text: "Unlimited Photos, GIFs & Boomerangs" },
-      { icon: <IconMessage />, text: "Instant Digital Sharing" },
-      { icon: <IconImageFrame />, text: "Premium Backdrop Selection" },
-      { icon: <IconTag />, text: "Custom Event Overlay" },
-      { icon: <IconTag />, text: "Luxury Props Collection" },
-      { icon: <IconUsers />, text: "On-Site Booth Attendant" },
-      { icon: <IconGallery />, text: "Online Gallery" },
-      { icon: <IconBook />, text: "Digital Guestbook" },
+      { icon: <IconClock />, text: "3 hours of service" },
+      { icon: <IconImageFrame />, text: "Premium backdrop" },
+      { icon: <IconCamera />, text: "Unlimited photos + GIFs" },
+      { icon: <IconTag />, text: "Premium props" },
+      { icon: <IconUsers />, text: "Professional attendant" },
+      { icon: <IconMessage />, text: "Instant sharing" },
+      { icon: <IconTag />, text: "Custom template" },
+      { icon: <IconGallery />, text: "Online gallery" },
     ],
   },
   {
-    name: "The Luxe Experience",
-    label: "Corporate Galas, Luxury Weddings & VIP Events",
-    price: "$1,199",
+    name: "Luxury",
+    label: "Premium Package",
+    price: "$799",
+    duration: "4 Hours",
     icon: <IconCrown />,
     featured: false,
-    cta: "Book The Luxe Experience",
+    cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
-    image: "/packeg.png",
     features: [
-      { icon: <IconClock />, text: "Up to 6 Hours of Service" },
-      { icon: <IconCamera />, text: "Premium Photobooth Setup" },
-      { icon: <IconVideo />, text: "Unlimited Photos, Videos & GIFs" },
-      { icon: <IconImageFrame />, text: "Custom-Branded Booth Screen" },
-      { icon: <IconCarpet />, text: "Luxury Backdrop & Red Carpet Setup" },
-      { icon: <IconTag />, text: "Premium Props" },
-      { icon: <IconUsers />, text: "Dedicated Event Attendant" },
-      { icon: <IconPrinter />, text: "Instant Prints for Guests" },
-      { icon: <IconBook />, text: "Custom Guestbook" },
-      { icon: <IconGallery />, text: "Full Online Gallery" },
-      { icon: <IconCheck />, text: "Setup & Breakdown Included" },
+      { icon: <IconClock />, text: "4 hours of service" },
+      { icon: <IconImageFrame />, text: "Luxury backdrop" },
+      { icon: <IconVideo />, text: "Unlimited photos, GIFs, videos" },
+      { icon: <IconTag />, text: "Custom props" },
+      { icon: <IconUsers />, text: "Dedicated attendant" },
+      { icon: <IconCheck />, text: "Full branding experience" },
+      { icon: <IconGallery />, text: "Online gallery" },
+      { icon: <IconCarpet />, text: "Red carpet + lighting" },
     ],
   },
 ];
@@ -95,21 +97,25 @@ export const addOns = [
 export const services = [
   {
     icon: <IconCamera />, title: "Digital Photobooth",
+    image: "/service-photobooth.jpg",
     desc: "Immersive cinematic experiences with custom branding, overlays, and instant digital sharing for your guests.",
     features: ["Unlimited digital photos & GIFs", "Custom branded overlays", "Instant text & email sharing", "Professional on-site attendant"],
   },
   {
     icon: <Icon360 />, title: "360 Video Booth",
+    image: "/service-360.png",
     desc: "Slow-motion 360 video experiences with custom music and branding — the ultimate event centrepiece.",
     features: ["Slow-motion 360° video capture", "Custom music & branding overlays", "Red carpet & LED platform setup", "Instant social-ready video clips"],
   },
   {
     icon: <IconUsers />, title: "Corporate Events",
+    image: "/service-corporate.png",
     desc: "Sleek, modern photo experiences designed for brand activations, galas, and high-impact corporate moments.",
     features: ["Full logo & brand integration", "Lead capture & data collection", "Custom digital backdrops", "On-brand printed and digital assets"],
   },
   {
     icon: <IconHeart />, title: "Weddings & Private Events",
+    image: "/service-wedding.png",
     desc: "Luxury mirror booth and 360 experiences that turn your wedding into a cinematic, unforgettable memory.",
     features: ["Elegant mirror & 360 booth options", "Custom wedding-themed templates", "Guestbook & keepsake prints", "Dedicated event coordinator"],
   },
@@ -152,12 +158,10 @@ export const testimonials = [
 ];
 
 export const galleryImages = [
-  "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80",
-  "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&q=80",
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
-  "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80",
-  "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=600&q=80",
-  "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80",
+  "/gallery/g1.png", "/gallery/g2.png", "/gallery/g3.png",
+  "/gallery/g4.png", "/gallery/g5.png", "/gallery/g6.png",
+  "/gallery/g7.png", "/gallery/g8.png", "/gallery/g9.png",
+  "/gallery/g10.png", "/gallery/g11.png", "/gallery/g12.png",
 ];
 
 export const faqs = [

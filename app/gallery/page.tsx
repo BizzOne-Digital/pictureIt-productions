@@ -13,7 +13,7 @@ export default function GalleryPage() {
   return (
     <>
       <PageHero eyebrow="Portfolio" title="Event" gold="Gallery" />
-      <section style={{ padding: "40px 5% 60px", background: "#0A0A0A" }}>
+      <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
           {galleryImages.map((src, i) => (
             <Reveal key={i} delay={i * 80} style={{ overflow: "hidden", borderRadius: 6 }}>
@@ -24,13 +24,13 @@ export default function GalleryPage() {
       </section>
 
       {/* INSTAGRAM */}
-      <section style={{ padding: "20px 5% 100px", background: "#0A0A0A" }}>
+      <section style={{ padding: "20px 5% 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <Reveal style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <span style={{ color: "#C9A84C" }}><IconInstagram /></span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>Follow Us on Instagram</div>
-              <div style={{ color: "#888", fontSize: "0.8rem" }}>@pictureitevents.ca</div>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--text)" }}>Follow Us on Instagram</div>
+              <div style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>@pictureitevents.ca</div>
             </div>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12 }} className="instagram-grid">
