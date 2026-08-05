@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { values, milestones } from "@/lib/data";
+import { values, milestones, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About Us | Picture It Productions",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="Our Story" title="Driven by a Passion for" gold="Captured Joy" />
+      <PageHero eyebrow="Our Story" title="Driven by a Passion for" gold="Captured Joy" image={pageBanners.about} />
 
       {/* STORY */}
       <section style={{ padding: "40px 5% 100px", background: "var(--bg)" }}>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconStar } from "@/components/icons";
-import { testimonials } from "@/lib/data";
+import { testimonials, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Client Reviews | Picture It Productions",
@@ -14,7 +14,7 @@ const reviewPhotos = ["/reviews/r1.png", "/reviews/r2.png", "/reviews/r4.png", "
 export default function ReviewsPage() {
   return (
     <>
-      <PageHero eyebrow="Testimonials" title="What Our" gold="Clients Say" subtitle="Stories from unforgettable events." />
+      <PageHero eyebrow="Testimonials" title="What Our" gold="Clients Say" subtitle="Stories from unforgettable events." image={pageBanners.reviews} />
       <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
           {testimonials.map((t, i) => (

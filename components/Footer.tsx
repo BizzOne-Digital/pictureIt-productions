@@ -9,10 +9,10 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 48, marginBottom: 48 }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <Image src="/logo.png" alt="Picture It Productions" width={48} height={48} style={{ objectFit: "contain" }} />
+              <Image src="/logo.png" alt="Picture It Productions" width={60} height={60} style={{ objectFit: "contain" }} />
               <div>
-                <div style={{ color: "#C9A84C", fontWeight: 800, fontSize: "0.95rem", fontFamily: "Playfair Display, serif" }}>PICTURE IT</div>
-                <div style={{ color: "#555", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>Productions</div>
+                <div style={{ color: "#C9A84C", fontWeight: 800, fontSize: "1rem", fontFamily: "Playfair Display, serif" }}>PICTURE IT</div>
+                <div style={{ color: "#777", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "Playfair Display, serif" }}>Productions</div>
               </div>
             </div>
             <p style={{ color: "#555", fontSize: "0.875rem", lineHeight: 1.8, maxWidth: 260 }}>Luxury photobooth experiences for those who value elegance and high-quality memories.</p>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconCheck } from "@/components/icons";
-import { services, whyChooseUs } from "@/lib/data";
+import { services, whyChooseUs, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Services | Picture It Productions",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="What We Offer" title="Elevating Every" gold="Occasion" subtitle="From intimate weddings to massive corporate galas, we bring meticulous detail and professional energy to every booking." />
+      <PageHero eyebrow="What We Offer" title="Elevating Every" gold="Occasion" subtitle="From intimate weddings to massive corporate galas, we bring meticulous detail and professional energy to every booking." image={pageBanners.services} />
 
       {/* SERVICES GRID */}
       <section style={{ padding: "40px 5% 100px", background: "var(--bg)" }}>

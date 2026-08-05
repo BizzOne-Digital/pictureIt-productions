@@ -24,31 +24,12 @@ export const socialLinks = [
 
 export const packages = [
   {
-    name: "Essential",
-    label: "Basic Package",
-    price: "$399",
-    duration: "2 Hours",
-    icon: <IconCamera />,
-    featured: false,
-    cta: "Select Package",
-    link: "https://form.jotform.com/261105582742050",
-    features: [
-      { icon: <IconClock />, text: "2 hours of service" },
-      { icon: <IconImageFrame />, text: "Standard backdrop" },
-      { icon: <IconCamera />, text: "Unlimited digital photos" },
-      { icon: <IconTag />, text: "Basic props" },
-      { icon: <IconUsers />, text: "On-site attendant" },
-      { icon: <IconMessage />, text: "Instant sharing" },
-      { icon: <IconTag />, text: "Basic custom template" },
-    ],
-  },
-  {
     name: "Signature",
     label: "Standard Package",
     price: "$599",
     duration: "3 Hours",
     icon: <IconDiamond />,
-    featured: true,
+    featured: false,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
     features: [
@@ -80,6 +61,28 @@ export const packages = [
       { icon: <IconCheck />, text: "Full branding experience" },
       { icon: <IconGallery />, text: "Online gallery" },
       { icon: <IconCarpet />, text: "Red carpet + lighting" },
+    ],
+  },
+  {
+    name: "Platinum",
+    label: "Premium Package",
+    price: "$1,199",
+    duration: "4 Hours",
+    icon: <IconCrown />,
+    featured: true,
+    cta: "Select Package",
+    link: "https://form.jotform.com/261105582742050",
+    features: [
+      { icon: <IconCamera />, text: "Mirror Booth and 360 Video Booth" },
+      { icon: <IconTag />, text: "Choice of Mirror Booth OR 360 Video Booth" },
+      { icon: <IconImageFrame />, text: "Luxury backdrop" },
+      { icon: <IconVideo />, text: "Unlimited photos, GIFs, videos" },
+      { icon: <IconTag />, text: "Custom props" },
+      { icon: <IconUsers />, text: "Dedicated attendant" },
+      { icon: <IconCheck />, text: "Full branding experience" },
+      { icon: <IconGallery />, text: "Online gallery" },
+      { icon: <IconCarpet />, text: "Red carpet + lighting" },
+      { icon: <IconVideo />, text: "Video Capture Services" },
     ],
   },
 ];
@@ -171,6 +174,16 @@ export const faqs = [
   { q: "Can we customize the template and branding?", a: "Absolutely. Every package includes a custom template. Premium and Platinum packages include full branding with your logo, colors, and custom overlays." },
   { q: "What is your cancellation policy?", a: "A 50% deposit secures your date. Cancellations 14+ days before the event receive a full deposit refund. Within 14 days, deposits are non-refundable but can be rescheduled." },
 ];
+
+export const pageBanners = {
+  services: "/service-360.png",
+  packages: "/packages-collage.png",
+  gallery: "/gallery/g5.png",
+  reviews: "/reviews/r2.png",
+  about: "/wedding-couple.png",
+  faq: "/gallery/g7.png",
+  contact: "/gallery/g3.png",
+};
 
 export const steps = [
   { num: "01", title: "Book", desc: "Choose your date and package through our easy online portal." },

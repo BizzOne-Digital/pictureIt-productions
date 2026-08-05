@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconPhone, IconMail, IconLocation } from "@/components/icons";
-import { socialLinks } from "@/lib/data";
+import { socialLinks, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact Us | Picture It Productions",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero eyebrow="Get In Touch" title="Contact" gold="Us" />
+      <PageHero eyebrow="Get In Touch" title="Contact" gold="Us" image={pageBanners.contact} />
       <section style={{ padding: "40px 5% 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 60, alignItems: "start" }} className="contact-grid">
           <Reveal>

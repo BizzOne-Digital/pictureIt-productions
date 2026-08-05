@@ -266,7 +266,6 @@ footer {
 
 .desktop-nav { display: flex; }
 .mobile-btn { display: none; }
-.hero-bg-mobile { display: none; }
 
 .nav-dropdown { position: relative; }
 .nav-dropdown-menu {
@@ -319,13 +318,13 @@ footer {
   .desktop-nav { display: none !important; }
   .mobile-btn { display: block !important; }
   .gallery-img { height: 180px !important; }
-  .hero-grid { padding-top: 120px !important; }
-  .hero-bg-desktop { display: none; }
-  .hero-bg-mobile { display: block; position: absolute; inset: 0; }
   .quote-grid { grid-template-columns: 1fr !important; }
   .instagram-grid { grid-template-columns: repeat(3, 1fr) !important; }
   .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
   .contact-grid { grid-template-columns: 1fr !important; }
+  .home-hero-grid { grid-template-columns: 1fr !important; }
+  .page-banner-img { height: 220px !important; }
+  .nav-contact-inline { display: none !important; }
 }
 
 @media (max-width: 480px) {

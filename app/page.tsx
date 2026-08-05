@@ -8,48 +8,44 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#0A0A0A" }}>
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <img src="/hero.png" alt="hero background" className="hero-bg-desktop" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          <img src="/mobile-bg.png" alt="hero background" className="hero-bg-mobile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.82) 100%)" }} />
-        </div>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1280, margin: "0 auto", padding: "160px 5% 100px" }} className="hero-grid">
-          <div>
-            <div className="animate-fade-in" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(201,168,76,0.4)", borderRadius: 999, padding: "8px 20px", marginBottom: 32 }}>
-              <IconStar />
-              <span style={{ color: "#C9A84C", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600 }}>5-Star Rated &nbsp;·&nbsp; 500+ Luxury Events</span>
-            </div>
-            <h1 className="animate-fade-in-up hero-title" style={{ fontFamily: "Playfair Display, serif", fontSize: "clamp(2.8rem, 6vw, 5rem)", fontWeight: 700, lineHeight: 1.1, marginBottom: 12, color: "#FFF" }}>
-              Capture Moments.<br /><span className="shimmer-text">Create Memories.</span>
-            </h1>
-            <p className="animate-fade-in-up delay-200" style={{ fontSize: "1.15rem", color: "#EEE", marginBottom: 16, fontStyle: "italic", fontFamily: "Playfair Display, serif" }}>Toronto&#39;s Premier Luxury Photobooth Experience</p>
-            <p className="animate-fade-in-up delay-400" style={{ color: "#CCC", fontSize: "1rem", maxWidth: 560, lineHeight: 1.8, marginBottom: 32 }}>Luxury 360 Video Booth and Mirror Booth experiences designed to elevate your celebration into a high-end cinematic memory.</p>
-            <div className="animate-fade-in-up delay-400" style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 40 }}>
-              {[{ i: <IconCamera />, l: "Instant Digital Sharing" }, { i: <Icon360 />, l: "Custom Event Templates" }, { i: <IconHeart />, l: "Unlimited Photos & GIFs" }].map((f, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ transform: "scale(0.55)", transformOrigin: "center" }}>{f.i}</span>
-                  <span style={{ color: "#DDD", fontSize: "0.85rem" }}>{f.l}</span>
-                </div>
-              ))}
-            </div>
-            <div className="animate-fade-in-up delay-600" style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-              <a href="https://form.jotform.com/261114232818046" target="_blank" className="btn-gold">Book a Session</a>
-              <div>
-                <div style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 700 }}>Special Offer</div>
-                <div style={{ color: "#DDD", fontSize: "0.85rem" }}>10% off your first booking</div>
+      <section style={{ background: "var(--bg-soft)", padding: "120px 5% 80px", textAlign: "center" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div className="animate-fade-in" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(201,168,76,0.4)", borderRadius: 999, padding: "8px 20px", marginBottom: 32 }}>
+            <IconStar />
+            <span style={{ color: "#C9A84C", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600 }}>5-Star Rated &nbsp;·&nbsp; 500+ Luxury Events</span>
+          </div>
+          <h1 className="animate-fade-in-up hero-title" style={{ fontFamily: "Playfair Display, serif", fontSize: "clamp(2.8rem, 6vw, 5rem)", fontWeight: 700, lineHeight: 1.1, marginBottom: 12, color: "var(--text)" }}>
+            Capture Moments.<br /><span className="shimmer-text">Create Memories.</span>
+          </h1>
+          <p className="animate-fade-in-up delay-200" style={{ fontSize: "1.15rem", color: "var(--text-body)", marginBottom: 16, fontStyle: "italic", fontFamily: "Playfair Display, serif" }}>Toronto&#39;s Premier Luxury Photobooth Experience</p>
+          <p className="animate-fade-in-up delay-400" style={{ color: "var(--text-body)", fontSize: "1rem", maxWidth: 560, lineHeight: 1.8, margin: "0 auto 32px" }}>Luxury 360 Video Booth and Mirror Booth experiences designed to elevate your celebration into a high-end cinematic memory.</p>
+          <div className="animate-fade-in-up delay-400" style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 40, justifyContent: "center" }}>
+            {[{ i: <IconCamera />, l: "Instant Digital Sharing" }, { i: <Icon360 />, l: "Custom Event Templates" }, { i: <IconHeart />, l: "Unlimited Photos & GIFs" }].map((f, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ transform: "scale(0.55)", transformOrigin: "center" }}>{f.i}</span>
+                <span style={{ color: "var(--text-body)", fontSize: "0.85rem" }}>{f.l}</span>
               </div>
-            </div>
-            <div className="animate-fade-in-up delay-800" style={{ display: "flex", gap: 48, marginTop: 56, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.15)", flexWrap: "wrap" }}>
-              {[{ num: "500+", label: "Luxury Events" }, { num: "5 Star", label: "Rated" }, { num: "100%", label: "Instant Sharing" }, { num: "GTA", label: "Toronto & Area" }].map(s => (
-                <div key={s.num}>
-                  <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C9A84C", fontFamily: "Playfair Display, serif" }}>{s.num}</div>
-                  <div style={{ color: "#BBB", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{s.label}</div>
-                </div>
-              ))}
+            ))}
+          </div>
+          <div className="animate-fade-in-up delay-600" style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+            <a href="https://form.jotform.com/261114232818046" target="_blank" className="btn-gold">Book a Session</a>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 700 }}>Special Offer</div>
+              <div style={{ color: "var(--text-body)", fontSize: "0.85rem" }}>10% off your first booking</div>
             </div>
           </div>
+          <div className="animate-fade-in-up delay-800" style={{ display: "flex", gap: 48, marginTop: 56, paddingTop: 40, borderTop: "1px solid var(--border)", flexWrap: "wrap", justifyContent: "center" }}>
+            {[{ num: "500+", label: "Luxury Events" }, { num: "5 Star", label: "Rated" }, { num: "100%", label: "Instant Sharing" }, { num: "GTA", label: "Toronto & Area" }].map(s => (
+              <div key={s.num}>
+                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C9A84C", fontFamily: "Playfair Display, serif" }}>{s.num}</div>
+                <div style={{ color: "var(--text-muted)", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
+        <Reveal delay={200} style={{ maxWidth: 1100, margin: "56px auto 0" }}>
+          <img src="/hero.png" alt="Luxury photobooth experience" className="page-banner-img" style={{ width: "100%", height: 360, objectFit: "cover", borderRadius: 12, border: "1px solid var(--border)", boxShadow: "0 8px 30px rgba(20,18,10,0.08)", filter: "brightness(1.06) contrast(1.03) saturate(1.05)" }} />
+        </Reveal>
       </section>
 
       {/* QUOTE FORM */}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconInstagram } from "@/components/icons";
-import { galleryImages } from "@/lib/data";
+import { galleryImages, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Gallery | Picture It Productions",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <>
-      <PageHero eyebrow="Portfolio" title="Event" gold="Gallery" />
+      <PageHero eyebrow="Portfolio" title="Event" gold="Gallery" image={pageBanners.gallery} />
       <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
           {galleryImages.map((src, i) => (

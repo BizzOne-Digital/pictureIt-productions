@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconCamera, IconCalendar, IconSparkle } from "@/components/icons";
-import { packages, addOns, packageIncludes } from "@/lib/data";
+import { packages, addOns, packageIncludes, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Packages & Pricing | Picture It Productions",
@@ -12,31 +12,7 @@ export const metadata: Metadata = {
 export default function PackagesPage() {
   return (
     <>
-      <PageHero eyebrow="Choose Your Experience" title="Packages Made for Every" gold="Celebration" subtitle="Premium photobooth experiences designed to capture memories that last a lifetime." />
-
-      {/* INTRO + COLLAGE */}
-      <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }} className="about-grid">
-          <Reveal>
-            <p style={{ color: "var(--text-body)", lineHeight: 1.9, marginBottom: 20 }}>Every package includes a professional on-site attendant, unlimited digital sharing, and a custom event template — no hidden fees, ever.</p>
-            <p style={{ color: "var(--text-body)", lineHeight: 1.9 }}>Whether it&#39;s an intimate gathering or a full-scale corporate gala, there&#39;s a Picture It experience built for your celebration.</p>
-          </Reveal>
-          <Reveal delay={150}>
-            <img src="/packages-collage.png" alt="Photobooth experiences" style={{ width: "100%", borderRadius: 8, border: "1px solid var(--border)" }} />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* EVERY PACKAGE INCLUDES */}
-      <section style={{ padding: "0 5% 40px", background: "var(--bg)" }}>
-        <Reveal style={{ maxWidth: 1280, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center", padding: "24px 32px", background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 8 }}>
-          {packageIncludes.map((p, i) => (
-            <span key={i} style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-body)", fontSize: "0.85rem" }}>
-              {p.icon}{p.text}
-            </span>
-          ))}
-        </Reveal>
-      </section>
+      <PageHero eyebrow="Choose Your Experience" title="Packages Made for Every" gold="Celebration" subtitle="Premium photobooth experiences designed to capture memories that last a lifetime." image={pageBanners.packages} />
 
       <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
@@ -68,6 +44,15 @@ export default function PackagesPage() {
               </Reveal>
             ))}
           </div>
+
+          {/* EVERY PACKAGE INCLUDES */}
+          <Reveal delay={200} style={{ maxWidth: 1280, margin: "48px auto 0", display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center", padding: "24px 32px", background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 8 }}>
+            {packageIncludes.map((p, i) => (
+              <span key={i} style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-body)", fontSize: "0.85rem" }}>
+                {p.icon}{p.text}
+              </span>
+            ))}
+          </Reveal>
 
           <Reveal delay={300} style={{ marginTop: 48, padding: "32px 40px", background: "var(--bg-soft)", borderRadius: 8, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
