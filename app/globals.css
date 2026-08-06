@@ -323,7 +323,7 @@ footer {
   .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
   .contact-grid { grid-template-columns: 1fr !important; }
   .home-hero-grid { grid-template-columns: 1fr !important; }
-  .page-banner-img { height: 220px !important; }
+  .page-hero > div:last-child { padding-top: 130px !important; }
   .nav-contact-inline { display: none !important; }
 }
 
