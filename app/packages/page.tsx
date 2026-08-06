@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { IconCamera, IconCalendar, IconSparkle } from "@/components/icons";
+import Link from "next/link";
+import { IconCamera, IconCalendar, IconSparkle, IconMessage, IconMail } from "@/components/icons";
 import { packages, addOns, packageIncludes, pageBanners } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -43,6 +44,22 @@ export default function PackagesPage() {
                 <a href={p.link} target="_blank" className={p.featured ? "btn-gold" : "btn-outline"} style={{ display: "block", textAlign: "center", marginTop: "auto" }}>{p.cta}</a>
               </Reveal>
             ))}
+          </div>
+
+          {/* FAQ / CONTACT */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, marginTop: 48 }}>
+            <Reveal delay={150} className="service-card" style={{ textAlign: "center" }}>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}><IconMessage /></div>
+              <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: 10, color: "var(--text)" }}>Have Questions?</h3>
+              <p style={{ color: "var(--text-body)", fontSize: "0.9rem", marginBottom: 20 }}>Check our frequently asked questions for quick answers about packages, setup, and booking.</p>
+              <Link href="/faq" className="btn-outline">View FAQ</Link>
+            </Reveal>
+            <Reveal delay={250} className="service-card" style={{ textAlign: "center" }}>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}><IconMail /></div>
+              <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: 10, color: "var(--text)" }}>Still Not Sure?</h3>
+              <p style={{ color: "var(--text-body)", fontSize: "0.9rem", marginBottom: 20 }}>Reach out and our team will help you pick the perfect package for your event.</p>
+              <Link href="/contact" className="btn-gold">Contact Us</Link>
+            </Reveal>
           </div>
 
           {/* EVERY PACKAGE INCLUDES */}
