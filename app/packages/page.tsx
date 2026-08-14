@@ -30,15 +30,20 @@ export default function PackagesPage() {
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>{p.label}</p>
                 <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.5rem", fontWeight: 700, color: p.featured ? "#C9A84C" : "var(--text)", marginBottom: 4 }}>{p.name}</h3>
-                <div style={{ margin: "20px 0", paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>
+                <div style={{ margin: "16px 0" }}>
                   <span style={{ fontSize: "2.5rem", fontWeight: 800, color: "#C9A84C", fontFamily: "Playfair Display, serif" }}>{p.price}</span>
                   <span style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginLeft: 8 }}>/ {p.duration}</span>
                 </div>
+                {p.desc && <p style={{ color: "var(--text-body)", fontSize: "0.8rem", lineHeight: 1.6, marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>{p.desc}</p>}
                 <ul style={{ listStyle: "none", marginBottom: 32, textAlign: "left", flex: 1 }}>
                   {p.features.map((f, j) => (
-                    <li key={j} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14, color: "var(--text-body)", fontSize: "0.875rem", lineHeight: 1.4 }}>
-                      <span style={{ flexShrink: 0, display: "flex" }}>{f.icon}</span>{f.text}
-                    </li>
+                    "heading" in f ? (
+                      <li key={j} style={{ color: "var(--gold-dark)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: j === 0 ? 0 : 20, marginBottom: 10 }}>{f.heading}</li>
+                    ) : (
+                      <li key={j} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, color: "var(--text-body)", fontSize: "0.85rem", lineHeight: 1.4 }}>
+                        <span style={{ flexShrink: 0, display: "flex" }}>{f.icon}</span>{f.text}
+                      </li>
+                    )
                   ))}
                 </ul>
                 <a href={p.link} target="_blank" className={p.featured ? "btn-gold" : "btn-outline"} style={{ display: "block", textAlign: "center", marginTop: "auto" }}>{p.cta}</a>
