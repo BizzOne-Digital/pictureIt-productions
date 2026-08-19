@@ -25,8 +25,8 @@ export default function PackagesPage() {
                     <IconSparkle /> Most Popular
                   </div>
                 )}
-                <div style={{ width: 56, height: 56, borderRadius: "50%", border: "1px solid var(--gold)", display: "flex", alignItems: "center", justifyContent: "center", margin: "8px auto 20px" }}>
-                  <span style={{ transform: "scale(0.8)" }}>{p.icon}</span>
+                <div style={{ display: "flex", justifyContent: "center", margin: "8px auto 20px" }}>
+                  {p.icon}
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>{p.label}</p>
                 <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.5rem", fontWeight: 700, color: p.featured ? "#C9A84C" : "var(--text)", marginBottom: 4 }}>{p.name}</h3>
@@ -90,7 +90,7 @@ export default function PackagesPage() {
           </Reveal>
 
           <Reveal delay={400} style={{ marginTop: 56, textAlign: "center" }}>
-            <p style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 24 }}>Popular Add-Ons</p>
+            <p style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 24 }}>Add-Ons</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
               {addOns.map((a, i) => (
                 <span key={i} style={{ display: "flex", alignItems: "center", gap: 8, border: "1px solid var(--border)", borderRadius: 999, padding: "10px 20px", fontSize: "0.8rem", color: "var(--text-body)" }}>

@@ -16,12 +16,12 @@ export default function Home() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "180px 5% 120px", textAlign: "center" }}>
           <div className="animate-fade-in" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(201,168,76,0.4)", borderRadius: 999, padding: "8px 20px", marginBottom: 32 }}>
             <IconStar />
-            <span style={{ color: "#C9A84C", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600 }}>5-Star Rated &nbsp;·&nbsp; 500+ Luxury Events</span>
+            <span style={{ color: "#C9A84C", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600 }}>100% Trusted Event Professionals</span>
           </div>
           <h1 className="animate-fade-in-up hero-title" style={{ fontFamily: "Playfair Display, serif", fontSize: "clamp(2.8rem, 6vw, 5rem)", fontWeight: 700, lineHeight: 1.1, marginBottom: 12, color: "#FFF" }}>
             Capture Moments.<br /><span className="shimmer-text">Create Memories.</span>
           </h1>
-          <p className="animate-fade-in-up delay-200" style={{ fontSize: "1.15rem", color: "#EEE", marginBottom: 16, fontStyle: "italic", fontFamily: "Playfair Display, serif" }}>Toronto&#39;s Premier Luxury Photobooth Experience</p>
+          <p className="animate-fade-in-up delay-200" style={{ fontSize: "1.15rem", color: "#EEE", marginBottom: 16, fontStyle: "italic", fontFamily: "Playfair Display, serif" }}>Premier Luxury Photobooth Experience</p>
           <p className="animate-fade-in-up delay-400" style={{ color: "#CCC", fontSize: "1rem", maxWidth: 560, lineHeight: 1.8, margin: "0 auto 32px" }}>Luxury 360 Video Booth and Mirror Booth experiences designed to elevate your celebration into a high-end cinematic memory.</p>
           <div className="animate-fade-in-up delay-400" style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 40, justifyContent: "center" }}>
             {[{ i: <IconCamera />, l: "Instant Digital Sharing" }, { i: <Icon360 />, l: "Custom Event Templates" }, { i: <IconHeart />, l: "Unlimited Photos & GIFs" }].map((f, i) => (
@@ -39,9 +39,9 @@ export default function Home() {
             </div>
           </div>
           <div className="animate-fade-in-up delay-800" style={{ display: "flex", gap: 48, marginTop: 56, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.15)", flexWrap: "wrap", justifyContent: "center" }}>
-            {[{ num: "500+", label: "Luxury Events" }, { num: "5 Star", label: "Rated" }, { num: "100%", label: "Instant Sharing" }, { num: "GTA", label: "Toronto & Area" }].map(s => (
+            {[{ num: "Trusted", label: "Event Professionals" }, { num: "Premium", label: "Guest Experience" }, { num: "Unforgettable", label: "Moments Captured" }, { num: "Instant Sharing", label: "Your memories, ready to share." }].map(s => (
               <div key={s.num}>
-                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C9A84C", fontFamily: "Playfair Display, serif" }}>{s.num}</div>
+                <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#C9A84C", fontFamily: "Playfair Display, serif" }}>{s.num}</div>
                 <div style={{ color: "#BBB", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{s.label}</div>
               </div>
             ))}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconPhone, IconMail, IconLocation } from "@/components/icons";
-import { socialLinks, pageBanners } from "@/lib/data";
+import { socialLinks, pageBanners, squarePayLink } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact Us | Picture It Productions",
@@ -55,6 +55,16 @@ export default function ContactPage() {
             <a href="mailto:info@pictureitevents.ca" className="btn-gold" style={{ display: "block", width: "100%", textAlign: "center", boxSizing: "border-box" }}>Send Message</a>
           </Reveal>
         </div>
+
+        {/* PAY ONLINE */}
+        <Reveal delay={200} style={{ maxWidth: 1280, margin: "48px auto 0", padding: "40px", background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
+          <div>
+            <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.25rem", fontWeight: 700, marginBottom: 8, color: "var(--text)" }}>Pay Your Deposit or Balance</h3>
+            <p style={{ color: "var(--text-body)", fontSize: "0.9rem", marginBottom: 16 }}>Securely pay online via Square, or scan the QR code with your phone.</p>
+            <a href={squarePayLink} target="_blank" className="btn-gold">Pay Online</a>
+          </div>
+          <img src="/square-pay-qr.png" alt="Scan to pay via Square" style={{ width: 140, height: 140, borderRadius: 8, border: "1px solid var(--border)", background: "#FFF", padding: 8 }} />
+        </Reveal>
       </section>
     </>
   );

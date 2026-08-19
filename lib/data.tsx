@@ -1,4 +1,4 @@
-import { IconCamera, Icon360, IconUsers, IconHeart, IconFacebook, IconInstagram, IconTiktok, IconDiamond, IconCrown, IconClock, IconMessage, IconImageFrame, IconTag, IconGallery, IconBook, IconVideo, IconPrinter, IconCarpet, IconBuilding, IconCheck } from "@/components/icons";
+import { IconCamera, Icon360, IconUsers, IconHeart, IconFacebook, IconInstagram, IconTiktok, IconDiamond, IconCrown, IconClock, IconMessage, IconImageFrame, IconTag, IconGallery, IconBook, IconVideo, IconPrinter, IconCarpet, IconCheck, BadgeSignature, BadgeLuxury, BadgePlatinum } from "@/components/icons";
 
 export const mainNav = [
   { label: "Home", href: "/" },
@@ -16,6 +16,8 @@ export const moreNav = [
 
 export const navLinks = [...mainNav.filter(l => l.label !== "Home"), ...moreNav];
 
+export const squarePayLink = "https://square.link/u/YHC4osR3";
+
 export const socialLinks = [
   { icon: <IconFacebook />, href: "https://www.facebook.com/people/Picture-It-Productions/61588676041830/" },
   { icon: <IconInstagram />, href: "https://www.instagram.com/pictureitevents.ca/" },
@@ -28,7 +30,7 @@ export const packages = [
     label: "Standard Package",
     price: "$599",
     duration: "3 Hours",
-    icon: <IconDiamond />,
+    icon: <BadgeSignature />,
     featured: false,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
@@ -45,10 +47,10 @@ export const packages = [
   },
   {
     name: "Luxury",
-    label: "Premium Package",
+    label: "Enhanced Package",
     price: "$799",
     duration: "4 Hours",
-    icon: <IconCrown />,
+    icon: <BadgeLuxury />,
     featured: false,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
@@ -69,7 +71,7 @@ export const packages = [
     label: "Premium Package",
     price: "$1,199",
     duration: "5 Hours",
-    icon: <IconCrown />,
+    icon: <BadgePlatinum />,
     featured: true,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
@@ -87,29 +89,25 @@ export const packages = [
       { icon: <IconImageFrame />, text: "Custom welcome screen" },
       { icon: <IconTag />, text: "Custom props" },
       { heading: "Photo & Video Experience" },
-      { icon: <IconPrinter />, text: "Unlimited photo prints" },
+      { icon: <IconPrinter />, text: "Up to 100 photo prints" },
       { icon: <IconMessage />, text: "Instant digital sharing station" },
       { icon: <IconVideo />, text: "Boomerang videos" },
       { icon: <IconVideo />, text: "Short-form vertical videos for Instagram & TikTok" },
       { icon: <IconVideo />, text: "Video capture services" },
       { heading: "Event Experience" },
       { icon: <IconCarpet />, text: "Red carpet" },
-      { icon: <IconTag />, text: "Small guest giveaways" },
       { icon: <IconGallery />, text: "Online gallery" },
-      { heading: "Keepsakes" },
-      { icon: <IconBook />, text: "Guestbook service" },
     ],
   },
 ];
 
 export const addOns = [
-  { icon: <IconClock />, label: "Extra Hour" },
-  { icon: <IconImageFrame />, label: "Premium Backdrop" },
-  { icon: <IconPrinter />, label: "Instant Prints" },
-  { icon: <IconVideo />, label: "Video Messages" },
-  { icon: <IconBook />, label: "Custom Guestbook" },
-  { icon: <IconCarpet />, label: "Red Carpet Setup" },
-  { icon: <IconBuilding />, label: "Corporate Branding" },
+  { icon: <IconClock />, label: "Additional Hour of Service" },
+  { icon: <IconBook />, label: "Guestbook" },
+  { icon: <IconTag />, label: "Customer Giveaways" },
+  { icon: <IconCheck />, label: "Full Event Branding Experience" },
+  { icon: <IconPrinter />, label: "Unlimited Photo Prints" },
+  { icon: <IconTag />, label: "Custom Props" },
 ];
 
 export const services = [
