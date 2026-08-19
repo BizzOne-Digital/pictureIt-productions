@@ -8,11 +8,12 @@ Site content (Services, Packages, Gallery, Testimonials, FAQs, Add-Ons, Package 
    - `MONGODB_URI` — your MongoDB connection string
    - `ADMIN_PASSWORD` — the password used to log into `/admin`
    - `ADMIN_SECRET` — any long random string (used to sign the admin session cookie)
+   - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` — from your Cloudinary dashboard's "Account Details" (used for image uploads in the admin panel)
 2. Run the app and visit `/admin/login`.
 3. On first load, each content collection auto-seeds from the site's existing content, so nothing goes blank.
-4. Uploaded images are saved to `public/uploads/` on the server (not tracked in git).
+4. Images uploaded through the admin panel are stored on Cloudinary (not on the server disk), so they persist across deploys.
 
-Set the same three env vars on the production server before deploying.
+Set the same env vars on the production server before deploying.
 
 ## Getting Started
 

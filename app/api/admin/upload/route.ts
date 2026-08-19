@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { uploadBuffer } from "@/lib/cloudinary";
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -9,10 +8,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
   const bytes = Buffer.from(await file.arrayBuffer());
-  const ext = path.extname(file.name) || ".png";
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadsDir, { recursive: true });
-  await writeFile(path.join(uploadsDir, safeName), bytes);
-  return NextResponse.json({ url: `/uploads/${safeName}` });
+  try {
+    const url = await uploadBuffer(bytes);
+    return NextResponse.json({ url });
+  } catch {
+    return NextResponse.json({ error: "Upload to Cloudinary failed. Check CLOUDINARY_* env vars." }, { status: 500 });
+  }
 }
