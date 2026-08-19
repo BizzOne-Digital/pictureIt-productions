@@ -2,15 +2,23 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
-import { IconCamera, IconCalendar, IconSparkle, IconMessage, IconMail } from "@/components/icons";
-import { packages, addOns, packageIncludes, pageBanners } from "@/lib/data";
+import { IconCamera, IconCalendar, IconSparkle, IconMessage, IconMail, RegistryIcon } from "@/components/icons";
+import { pageBanners } from "@/lib/data";
+import { packagesStore, addOnsStore, packageIncludesStore } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Packages & Pricing | Picture It Productions",
   description: "Photobooth and 360 video booth packages for weddings, corporate events, and celebrations across Toronto & GTA.",
 };
 
-export default function PackagesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PackagesPage() {
+  const [packages, addOns, packageIncludes] = await Promise.all([
+    packagesStore.list(),
+    addOnsStore.list(),
+    packageIncludesStore.list(),
+  ]);
   return (
     <>
       <PageHero eyebrow="Choose Your Experience" title="Packages Made for Every" gold="Celebration" subtitle="Premium photobooth experiences designed to capture memories that last a lifetime." image={pageBanners.packages} />
@@ -19,14 +27,14 @@ export default function PackagesPage() {
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, alignItems: "stretch" }}>
             {packages.map((p, i) => (
-              <Reveal key={i} delay={i * 100} className={`package-card ${p.featured ? "featured" : ""}`} style={{ height: "100%", display: "flex", flexDirection: "column", textAlign: "center" }}>
+              <Reveal key={p._id} delay={i * 100} className={`package-card ${p.featured ? "featured" : ""}`} style={{ height: "100%", display: "flex", flexDirection: "column", textAlign: "center" }}>
                 {p.featured && (
                   <div style={{ position: "absolute", top: -1, left: "50%", transform: "translateX(-50%)", zIndex: 2, display: "flex", alignItems: "center", gap: 6, background: "linear-gradient(135deg, #C9A84C, #E8C97A)", color: "#0A0A0A", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "6px 16px", borderRadius: "0 0 8px 8px" }}>
                     <IconSparkle /> Most Popular
                   </div>
                 )}
                 <div style={{ display: "flex", justifyContent: "center", margin: "8px auto 20px" }}>
-                  {p.icon}
+                  <img src={p.image} alt={p.name} width={72} height={72} style={{ objectFit: "contain" }} />
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>{p.label}</p>
                 <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.5rem", fontWeight: 700, color: p.featured ? "#C9A84C" : "var(--text)", marginBottom: 4 }}>{p.name}</h3>
@@ -37,11 +45,11 @@ export default function PackagesPage() {
                 {p.desc && <p style={{ color: "var(--text-body)", fontSize: "0.8rem", lineHeight: 1.6, marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid var(--border)" }}>{p.desc}</p>}
                 <ul style={{ listStyle: "none", marginBottom: 32, textAlign: "left", flex: 1 }}>
                   {p.features.map((f, j) => (
-                    "heading" in f ? (
+                    f.heading ? (
                       <li key={j} style={{ color: "var(--gold-dark)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: j === 0 ? 0 : 20, marginBottom: 10 }}>{f.heading}</li>
                     ) : (
                       <li key={j} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, color: "var(--text-body)", fontSize: "0.85rem", lineHeight: 1.4 }}>
-                        <span style={{ flexShrink: 0, display: "flex" }}>{f.icon}</span>{f.text}
+                        <span style={{ flexShrink: 0, display: "flex" }}><RegistryIcon name={f.iconKey || "check"} /></span>{f.text}
                       </li>
                     )
                   ))}
@@ -69,9 +77,9 @@ export default function PackagesPage() {
 
           {/* EVERY PACKAGE INCLUDES */}
           <Reveal delay={200} style={{ maxWidth: 1280, margin: "48px auto 0", display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center", padding: "24px 32px", background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 8 }}>
-            {packageIncludes.map((p, i) => (
-              <span key={i} style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-body)", fontSize: "0.85rem" }}>
-                {p.icon}{p.text}
+            {packageIncludes.map(p => (
+              <span key={p._id} style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-body)", fontSize: "0.85rem" }}>
+                <RegistryIcon name={p.iconKey} />{p.text}
               </span>
             ))}
           </Reveal>
@@ -93,9 +101,9 @@ export default function PackagesPage() {
             <img src="/badge-addons.png" alt="Add-Ons" width={64} height={64} style={{ objectFit: "contain", margin: "0 auto 12px", display: "block" }} />
             <p style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 24 }}>Add-Ons</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
-              {addOns.map((a, i) => (
-                <span key={i} style={{ display: "flex", alignItems: "center", gap: 8, border: "1px solid var(--border)", borderRadius: 999, padding: "10px 20px", fontSize: "0.8rem", color: "var(--text-body)" }}>
-                  {a.icon}{a.label}
+              {addOns.map(a => (
+                <span key={a._id} style={{ display: "flex", alignItems: "center", gap: 8, border: "1px solid var(--border)", borderRadius: 999, padding: "10px 20px", fontSize: "0.8rem", color: "var(--text-body)" }}>
+                  <RegistryIcon name={a.iconKey} />{a.label}
                 </span>
               ))}
             </div>

@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { IconCheck } from "@/components/icons";
-import { services, whyChooseUs, pageBanners } from "@/lib/data";
+import { IconCheck, RegistryIcon } from "@/components/icons";
+import { whyChooseUs, pageBanners } from "@/lib/data";
+import { servicesStore } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Services | Picture It Productions",
   description: "Digital Photobooth, 360 Video Booth, corporate events, and wedding photo experiences across Toronto & GTA.",
 };
 
-export default function ServicesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const services = await servicesStore.list();
   return (
     <>
       <PageHero eyebrow="What We Offer" title="Elevating Every" gold="Occasion" subtitle="From intimate weddings to massive corporate galas, we bring meticulous detail and professional energy to every booking." image={pageBanners.services} />
@@ -19,10 +23,10 @@ export default function ServicesPage() {
       <section style={{ padding: "40px 5% 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
           {services.map((s, i) => (
-            <Reveal key={i} delay={i * 100} className="service-card" style={{ padding: 0, overflow: "hidden" }}>
+            <Reveal key={s._id} delay={i * 100} className="service-card" style={{ padding: 0, overflow: "hidden" }}>
               <img src={s.image} alt={s.title} style={{ width: "100%", height: 180, objectFit: "cover" }} />
               <div style={{ padding: 28 }}>
-                <div style={{ marginBottom: 16 }}>{s.icon}</div>
+                <div style={{ marginBottom: 16 }}><RegistryIcon name={s.iconKey} /></div>
                 <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.2rem", fontWeight: 600, marginBottom: 12, color: "var(--text)" }}>{s.title}</h3>
                 <p style={{ color: "var(--text-body)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 20 }}>{s.desc}</p>
                 <ul style={{ listStyle: "none" }}>

@@ -1,5 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Admin Panel
+
+Site content (Services, Packages, Gallery, Testimonials, FAQs, Add-Ons, Package Includes) is stored in MongoDB and managed at `/admin`.
+
+1. Copy `.env.example` to `.env.local` and fill in:
+   - `MONGODB_URI` — your MongoDB connection string
+   - `ADMIN_PASSWORD` — the password used to log into `/admin`
+   - `ADMIN_SECRET` — any long random string (used to sign the admin session cookie)
+2. Run the app and visit `/admin/login`.
+3. On first load, each content collection auto-seeds from the site's existing content, so nothing goes blank.
+4. Uploaded images are saved to `public/uploads/` on the server (not tracked in git).
+
+Set the same three env vars on the production server before deploying.
+
 ## Getting Started
 
 First, run the development server:

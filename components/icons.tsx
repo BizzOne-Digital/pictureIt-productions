@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export const IconStar = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="#C9A84C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
 );
@@ -85,4 +87,34 @@ export const IconCalendar = () => (
 export const IconSparkle = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" /></svg>
 );
+
+export const iconRegistry: Record<string, () => ReactNode> = {
+  camera: IconCamera,
+  video360: Icon360,
+  users: IconUsers,
+  heart: IconHeart,
+  check: IconCheck,
+  diamond: IconDiamond,
+  crown: IconCrown,
+  clock: IconClock,
+  message: IconMessage,
+  imageFrame: IconImageFrame,
+  tag: IconTag,
+  gallery: IconGallery,
+  book: IconBook,
+  video: IconVideo,
+  printer: IconPrinter,
+  carpet: IconCarpet,
+  building: IconBuilding,
+  star: IconStar,
+  sparkle: IconSparkle,
+};
+
+export const iconKeys = Object.keys(iconRegistry);
+
+export function RegistryIcon({ name }: { name: string }) {
+  const Cmp = iconRegistry[name];
+  if (!Cmp) return null;
+  return <>{Cmp()}</>;
+}
 

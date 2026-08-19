@@ -2,23 +2,27 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { IconStar } from "@/components/icons";
-import { testimonials, pageBanners } from "@/lib/data";
+import { pageBanners } from "@/lib/data";
+import { testimonialsStore } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Client Reviews | Picture It Productions",
   description: "See what our clients say about our luxury 360 video booth and mirror booth experiences.",
 };
 
+export const dynamic = "force-dynamic";
+
 const reviewPhotos = ["/reviews/r1.png", "/reviews/r2.png", "/reviews/r4.png", "/reviews/r5.png"];
 
-export default function ReviewsPage() {
+export default async function ReviewsPage() {
+  const testimonials = await testimonialsStore.list();
   return (
     <>
       <PageHero eyebrow="Testimonials" title="What Our" gold="Clients Say" subtitle="Stories from unforgettable events." image={pageBanners.reviews} />
       <section style={{ padding: "40px 5% 60px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
           {testimonials.map((t, i) => (
-            <Reveal key={i} delay={i * 100} className="testimonial-card">
+            <Reveal key={t._id} delay={i * 100} className="testimonial-card">
               <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
               <p style={{ color: "var(--text-body)", fontSize: "0.95rem", lineHeight: 1.8, fontStyle: "italic", marginBottom: 24 }}>&#34;{t.quote}&#34;</p>
               <div style={{ borderTop: "1px solid var(--border)", paddingTop: 20 }}>

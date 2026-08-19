@@ -1,10 +1,18 @@
-"use client";
 import Link from "next/link";
-import { IconStar, IconCamera, Icon360, IconHeart } from "@/components/icons";
+import { IconStar, IconCamera, Icon360, IconHeart, RegistryIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
-import { steps, services, testimonials, galleryImages } from "@/lib/data";
+import { steps } from "@/lib/data";
+import { servicesStore, testimonialsStore, galleryStore } from "@/lib/content";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [services, testimonials, gallery] = await Promise.all([
+    servicesStore.list(),
+    testimonialsStore.list(),
+    galleryStore.list(),
+  ]);
+
   return (
     <>
       {/* HERO */}
@@ -75,7 +83,7 @@ export default function Home() {
               <input type="text" placeholder="Event Location" style={{ background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 4, padding: "12px 16px", color: "var(--text)", fontSize: "0.875rem", outline: "none", width: "100%" }} />
             </div>
             <textarea placeholder="Tell us about your event..." rows={4} style={{ background: "var(--bg-soft)", border: "1px solid var(--border)", borderRadius: 4, padding: "12px 16px", color: "var(--text)", fontSize: "0.875rem", outline: "none", width: "100%", resize: "vertical", marginBottom: 20 }} />
-            <button className="btn-gold" style={{ width: "100%", textAlign: "center" }} onClick={() => window.open("mailto:info@pictureitevents.ca", "_blank")}>Get My Free Quote</button>
+            <a href="mailto:info@pictureitevents.ca" className="btn-gold" style={{ display: "block", width: "100%", textAlign: "center", boxSizing: "border-box" }}>Get My Free Quote</a>
             <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", textAlign: "center", marginTop: 16 }}>We typically respond within 30 minutes!</p>
           </Reveal>
           <Reveal delay={150} className="quote-image-col" style={{ position: "relative" }}>
@@ -94,8 +102,8 @@ export default function Home() {
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24, marginBottom: 40 }}>
             {services.map((s, i) => (
-              <Reveal key={i} delay={i * 100} className="service-card">
-                <div style={{ marginBottom: 20 }}>{s.icon}</div>
+              <Reveal key={s._id} delay={i * 100} className="service-card">
+                <div style={{ marginBottom: 20 }}><RegistryIcon name={s.iconKey} /></div>
                 <h3 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.2rem", fontWeight: 600, marginBottom: 12, color: "var(--text)" }}>{s.title}</h3>
                 <p style={{ color: "var(--text-body)", fontSize: "0.9rem", lineHeight: 1.7 }}>{s.desc}</p>
               </Reveal>
@@ -137,7 +145,7 @@ export default function Home() {
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 40 }}>
             {testimonials.map((t, i) => (
-              <Reveal key={i} delay={i * 100} className="testimonial-card">
+              <Reveal key={t._id} delay={i * 100} className="testimonial-card">
                 <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
                 <p style={{ color: "var(--text-body)", fontSize: "0.95rem", lineHeight: 1.8, fontStyle: "italic", marginBottom: 24 }}>&#34;{t.quote}&#34;</p>
                 <div style={{ borderTop: "1px solid var(--border)", paddingTop: 20 }}>
@@ -162,9 +170,9 @@ export default function Home() {
             <div className="section-divider" />
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 40 }}>
-            {galleryImages.slice(0, 6).map((src, i) => (
-              <Reveal key={i} delay={i * 80} style={{ overflow: "hidden", borderRadius: 6 }}>
-                <img src={src} alt={`Event ${i + 1}`} className="gallery-img" />
+            {gallery.slice(0, 6).map((g, i) => (
+              <Reveal key={g._id} delay={i * 80} style={{ overflow: "hidden", borderRadius: 6 }}>
+                <img src={g.url} alt={`Event ${i + 1}`} className="gallery-img" />
               </Reveal>
             ))}
           </div>
