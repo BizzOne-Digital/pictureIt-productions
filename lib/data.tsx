@@ -1,4 +1,4 @@
-import { IconCamera, Icon360, IconUsers, IconHeart, IconFacebook, IconInstagram, IconTiktok, IconDiamond, IconCrown, IconClock, IconMessage, IconImageFrame, IconTag, IconGallery, IconBook, IconVideo, IconPrinter, IconCarpet, IconCheck, BadgeSignature, BadgeLuxury, BadgePlatinum } from "@/components/icons";
+import { IconCamera, Icon360, IconUsers, IconHeart, IconFacebook, IconInstagram, IconTiktok, IconDiamond, IconCrown, IconClock, IconMessage, IconImageFrame, IconTag, IconGallery, IconBook, IconVideo, IconPrinter, IconCarpet, IconCheck } from "@/components/icons";
 
 export const mainNav = [
   { label: "Home", href: "/" },
@@ -30,7 +30,7 @@ export const packages = [
     label: "Standard Package",
     price: "$599",
     duration: "3 Hours",
-    icon: <BadgeSignature />,
+    icon: <img src="/badge-signature.png" alt="Signature" width={72} height={72} style={{ objectFit: "contain" }} />,
     featured: false,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
@@ -50,7 +50,7 @@ export const packages = [
     label: "Enhanced Package",
     price: "$799",
     duration: "4 Hours",
-    icon: <BadgeLuxury />,
+    icon: <img src="/badge-luxury.png" alt="Luxury" width={72} height={72} style={{ objectFit: "contain" }} />,
     featured: false,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",
@@ -71,7 +71,7 @@ export const packages = [
     label: "Premium Package",
     price: "$1,199",
     duration: "5 Hours",
-    icon: <BadgePlatinum />,
+    icon: <img src="/badge-platinum.png" alt="Platinum" width={72} height={72} style={{ objectFit: "contain" }} />,
     featured: true,
     cta: "Select Package",
     link: "https://form.jotform.com/261105582742050",

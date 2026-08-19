@@ -90,6 +90,7 @@ export default function PackagesPage() {
           </Reveal>
 
           <Reveal delay={400} style={{ marginTop: 56, textAlign: "center" }}>
+            <img src="/badge-addons.png" alt="Add-Ons" width={64} height={64} style={{ objectFit: "contain", margin: "0 auto 12px", display: "block" }} />
             <p style={{ color: "#C9A84C", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 24 }}>Add-Ons</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
               {addOns.map((a, i) => (

@@ -86,38 +86,3 @@ export const IconSparkle = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" /></svg>
 );
 
-export const BadgeSignature = () => (
-  <svg width="56" height="56" viewBox="0 0 56 56">
-    <circle cx="28" cy="28" r="26" fill="#0A0A0A" stroke="#B8B8B8" strokeWidth="2" />
-    <circle cx="28" cy="28" r="22" fill="none" stroke="#8A8A8A" strokeWidth="0.75" />
-    <text x="28" y="34" textAnchor="middle" fontFamily="Playfair Display, serif" fontStyle="italic" fontSize="22" fill="#D9D9D9">S</text>
-    <line x1="16" y1="42" x2="40" y2="42" stroke="#8A8A8A" strokeWidth="0.75" />
-  </svg>
-);
-
-export const BadgeLuxury = () => (
-  <svg width="56" height="56" viewBox="0 0 56 56">
-    <circle cx="28" cy="28" r="26" fill="#0A0A0A" stroke="#C9A84C" strokeWidth="2" />
-    <circle cx="28" cy="28" r="22" fill="none" stroke="#8B6914" strokeWidth="0.75" />
-    <path d="M22 16l3 3 3-4 3 4 3-3-1.5 7h-9z" fill="#C9A84C" />
-    <text x="28" y="38" textAnchor="middle" fontFamily="Playfair Display, serif" fontWeight="700" fontSize="20" fill="#E8C97A">L</text>
-  </svg>
-);
-
-export const BadgePlatinum = () => (
-  <svg width="56" height="56" viewBox="0 0 56 56">
-    <circle cx="28" cy="28" r="26" fill="#0A0A0A" stroke="#C7C7C7" strokeWidth="2" />
-    <circle cx="28" cy="28" r="22" fill="none" stroke="#9A9A9A" strokeWidth="0.75" />
-    <path d="M28 12l1.2 3.2 3.3-1-2 2.9 3.5.7-3.5.7 2 2.9-3.3-1L28 22l-1.2-3.2-3.3 1 2-2.9-3.5-.7 3.5-.7-2-2.9 3.3 1z" fill="#E4E4E4" />
-    <text x="28" y="38" textAnchor="middle" fontFamily="Playfair Display, serif" fontWeight="700" fontSize="20" fill="#EDEDED">P</text>
-  </svg>
-);
-
-export const BadgeAddOns = () => (
-  <svg width="56" height="56" viewBox="0 0 56 56">
-    <circle cx="28" cy="28" r="26" fill="#0A0A0A" stroke="#C9A84C" strokeWidth="2" />
-    <circle cx="28" cy="28" r="22" fill="none" stroke="#8B6914" strokeWidth="0.75" />
-    <line x1="28" y1="18" x2="28" y2="34" stroke="#E8C97A" strokeWidth="2.5" strokeLinecap="round" />
-    <line x1="20" y1="26" x2="36" y2="26" stroke="#E8C97A" strokeWidth="2.5" strokeLinecap="round" />
-  </svg>
-);
