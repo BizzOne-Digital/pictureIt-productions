@@ -97,6 +97,57 @@ function PackageFeaturesField({ value, onChange }: { value: FeatureItem[]; onCha
   );
 }
 
+function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
+  const [album, setAlbum] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    setProgress({ done: 0, total: files.length });
+    for (let i = 0; i < files.length; i++) {
+      try {
+        const url = await uploadFile(files[i]);
+        await fetch("/api/admin/gallery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url, album: album.trim() }),
+        });
+      } catch {
+        // continue with remaining files even if one fails
+      }
+      setProgress({ done: i + 1, total: files.length });
+    }
+    setUploading(false);
+    setProgress(null);
+    onDone();
+  }
+
+  return (
+    <div style={{ background: "#111", border: "1px solid #2A2A2A", borderRadius: 8, padding: 20, marginBottom: 24 }}>
+      <label style={labelStyle}>Bulk Upload Photos</label>
+      <p style={{ color: "#777", fontSize: "0.8rem", marginBottom: 12 }}>Select multiple photos at once — each becomes its own gallery item (this never replaces existing photos).</p>
+      <input
+        type="text"
+        placeholder="Album name (optional — groups these photos into a shareable sub-gallery)"
+        value={album}
+        onChange={e => setAlbum(e.target.value)}
+        style={{ ...inputStyle, marginBottom: 12 }}
+      />
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        disabled={uploading}
+        onChange={e => handleFiles(e.target.files)}
+        style={{ fontSize: "0.8rem", color: "#999" }}
+      />
+      {progress && <p style={{ color: "#C9A84C", fontSize: "0.8rem", marginTop: 8 }}>Uploading {progress.done} / {progress.total}...</p>}
+    </div>
+  );
+}
+
 function Field({ field, value, onChange }: { field: FieldConfig; value: unknown; onChange: (v: unknown) => void }) {
   switch (field.kind) {
     case "text":
@@ -211,6 +262,8 @@ export default function AdminCollectionPage() {
         {!editing && <button onClick={startNew} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>+ Add New</button>}
       </div>
 
+      {collection === "gallery" && !editing && <BulkGalleryUpload onDone={load} />}
+
       {editing ? (
         <div style={{ background: "#111", border: "1px solid #2A2A2A", borderRadius: 8, padding: 24, maxWidth: 640 }}>
           {config.fields.map(field => (
@@ -238,6 +291,9 @@ export default function AdminCollectionPage() {
                 <button onClick={() => handleReorder(item._id!, "up")} disabled={i === 0} style={{ background: "none", border: "none", color: i === 0 ? "#444" : "#888", cursor: i === 0 ? "default" : "pointer", fontSize: "0.7rem" }}>▲</button>
                 <button onClick={() => handleReorder(item._id!, "down")} disabled={i === items.length - 1} style={{ background: "none", border: "none", color: i === items.length - 1 ? "#444" : "#888", cursor: i === items.length - 1 ? "default" : "pointer", fontSize: "0.7rem" }}>▼</button>
               </div>
+              {collection === "gallery" && item.url && (
+                <img src={item.url} alt="" style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 4, flexShrink: 0 }} />
+              )}
               <span style={{ flex: 1, color: "#EEE", fontSize: "0.9rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{config.summary(item)}</span>
               <button onClick={() => setEditing(item)} className="btn-outline" style={{ fontSize: "0.75rem", padding: "6px 14px" }}>Edit</button>
               <button onClick={() => handleDelete(item._id!)} style={{ background: "none", border: "1px solid #5A2A2A", color: "#E05C5C", borderRadius: 4, padding: "6px 14px", fontSize: "0.75rem", cursor: "pointer" }}>Delete</button>

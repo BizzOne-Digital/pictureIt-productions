@@ -80,13 +80,27 @@ export const servicesStore = makeStore<ServiceData>("services", [
 // ---- Gallery ----
 export interface GalleryData {
   url: string;
+  album?: string;
 }
 export const galleryStore = makeStore<GalleryData>("gallery", [
   "/gallery/g1.png", "/gallery/g2.png", "/gallery/g3.png",
   "/gallery/g4.png", "/gallery/g5.png", "/gallery/g6.png",
   "/gallery/g7.png", "/gallery/g8.png", "/gallery/g9.png",
   "/gallery/g10.png", "/gallery/g11.png", "/gallery/g12.png",
-].map(url => ({ url })));
+].map(url => ({ url, album: "" })));
+
+// ---- Gallery Albums (shareable, optionally password-protected sub-galleries) ----
+export interface GalleryAlbumData {
+  name: string;
+  slug: string;
+  password?: string;
+}
+export const galleryAlbumsStore = makeStore<GalleryAlbumData>("galleryAlbums", []);
+
+export async function findAlbumBySlug(slug: string): Promise<WithId<GalleryAlbumData> | null> {
+  const albums = await galleryAlbumsStore.list();
+  return albums.find(a => a.slug === slug) || null;
+}
 
 // ---- Packages ----
 export interface PackageFeatureItem {
@@ -218,6 +232,7 @@ export const faqsStore = makeStore<FaqData>("faqs", [
 export const stores = {
   services: servicesStore,
   gallery: galleryStore,
+  galleryAlbums: galleryAlbumsStore,
   packages: packagesStore,
   addOns: addOnsStore,
   packageIncludes: packageIncludesStore,

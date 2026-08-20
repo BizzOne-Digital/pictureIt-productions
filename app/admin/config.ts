@@ -35,8 +35,19 @@ export const collectionConfigs: Record<string, CollectionConfig> = {
     title: "Gallery",
     fields: [
       { name: "url", label: "Image", kind: "image" },
+      { name: "album", label: "Album (optional — groups photos into a shareable sub-gallery)", kind: "text" },
     ],
-    summary: item => item.url,
+    summary: item => `${item.url}${item.album ? `  [${item.album}]` : ""}`,
+  },
+  galleryAlbums: {
+    key: "galleryAlbums",
+    title: "Shareable Albums",
+    fields: [
+      { name: "name", label: "Album Name", kind: "text" },
+      { name: "slug", label: "Link Slug (e.g. smith-wedding — used in the shareable URL)", kind: "text" },
+      { name: "password", label: "Password (leave blank for no password)", kind: "text" },
+    ],
+    summary: item => `${item.name} — /gallery/album/${item.slug}${item.password ? " (locked)" : ""}`,
   },
   packages: {
     key: "packages",
@@ -94,4 +105,4 @@ export const collectionConfigs: Record<string, CollectionConfig> = {
   },
 };
 
-export const collectionOrder = ["services", "packages", "gallery", "testimonials", "faqs", "addOns", "packageIncludes"];
+export const collectionOrder = ["services", "packages", "gallery", "galleryAlbums", "testimonials", "faqs", "addOns", "packageIncludes"];
