@@ -148,6 +148,86 @@ function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
   );
 }
 
+function AlbumPhotosManager({ slug }: { slug: string }) {
+  const [photos, setPhotos] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+
+  const loadPhotos = useCallback(async () => {
+    setLoading(true);
+    const res = await fetch("/api/admin/gallery");
+    const data = await res.json();
+    const all: Item[] = data.items || [];
+    setPhotos(all.filter(p => (p.album || "").trim().toLowerCase() === slug.trim().toLowerCase()));
+    setLoading(false);
+  }, [slug]);
+
+  useEffect(() => {
+    loadPhotos();
+  }, [loadPhotos]);
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    setProgress({ done: 0, total: files.length });
+    for (let i = 0; i < files.length; i++) {
+      try {
+        const url = await uploadFile(files[i]);
+        await fetch("/api/admin/gallery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url, album: slug }),
+        });
+      } catch {
+        // continue with remaining files even if one fails
+      }
+      setProgress({ done: i + 1, total: files.length });
+    }
+    setUploading(false);
+    setProgress(null);
+    await loadPhotos();
+  }
+
+  async function handleRemove(id: string) {
+    await fetch(`/api/admin/gallery/${id}`, { method: "DELETE" });
+    await loadPhotos();
+  }
+
+  return (
+    <div style={{ background: "#161616", border: "1px solid #2A2A2A", borderRadius: 6, padding: 16 }}>
+      <p style={{ color: "#777", fontSize: "0.8rem", marginBottom: 12 }}>Select multiple photos at once for this album — each becomes its own photo, nothing gets replaced.</p>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        disabled={uploading}
+        onChange={e => handleFiles(e.target.files)}
+        style={{ fontSize: "0.8rem", color: "#999", marginBottom: 12 }}
+      />
+      {progress && <p style={{ color: "#C9A84C", fontSize: "0.8rem", marginBottom: 12 }}>Uploading {progress.done} / {progress.total}...</p>}
+      {loading ? (
+        <p style={{ color: "#888", fontSize: "0.8rem" }}>Loading photos...</p>
+      ) : photos.length === 0 ? (
+        <p style={{ color: "#888", fontSize: "0.8rem" }}>No photos in this album yet.</p>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(80px, 1fr))", gap: 8 }}>
+          {photos.map(p => (
+            <div key={p._id} style={{ position: "relative" }}>
+              <img src={p.url} alt="" style={{ width: "100%", height: 80, objectFit: "cover", borderRadius: 4, border: "1px solid #2A2A2A" }} />
+              <button
+                type="button"
+                onClick={() => handleRemove(p._id!)}
+                style={{ position: "absolute", top: 2, right: 2, background: "rgba(10,10,10,0.8)", border: "none", color: "#E05C5C", borderRadius: "50%", width: 20, height: 20, fontSize: "0.7rem", cursor: "pointer", lineHeight: 1 }}
+              >✕</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Field({ field, value, onChange }: { field: FieldConfig; value: unknown; onChange: (v: unknown) => void }) {
   switch (field.kind) {
     case "text":
@@ -226,15 +306,27 @@ export default function AdminCollectionPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+        if (collection === "galleryAlbums") {
+          await load();
+        } else {
+          setEditing(null);
+          await load();
+        }
       } else {
-        await fetch(`/api/admin/${collection}`, {
+        const res = await fetch(`/api/admin/${collection}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+        if (collection === "galleryAlbums") {
+          const { id } = await res.json();
+          setEditing({ ...editing, _id: id });
+          await load();
+        } else {
+          setEditing(null);
+          await load();
+        }
       }
-      setEditing(null);
-      await load();
     } finally {
       setSaving(false);
     }
@@ -272,6 +364,16 @@ export default function AdminCollectionPage() {
               <Field field={field} value={editing[field.name]} onChange={v => setEditing({ ...editing, [field.name]: v })} />
             </div>
           ))}
+          {collection === "galleryAlbums" && (
+            <div style={{ marginBottom: 18 }}>
+              <label style={labelStyle}>Album Photos</label>
+              {editing._id ? (
+                <AlbumPhotosManager slug={editing.slug} />
+              ) : (
+                <p style={{ color: "#888", fontSize: "0.8rem" }}>Click &quot;Save&quot; below first, then you can bulk upload photos for this album right here.</p>
+              )}
+            </div>
+          )}
           <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
             <button onClick={handleSave} disabled={saving} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>
               {saving ? "Saving..." : "Save"}
