@@ -4,8 +4,17 @@ import AlbumUnlockForm from "./AlbumUnlockForm";
 
 export const dynamic = "force-dynamic";
 
+function safeDecode(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export default async function AlbumPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = safeDecode(rawSlug);
   const album = slug.trim() ? await findAlbumBySlug(slug) : null;
 
   if (!album) {

@@ -97,7 +97,16 @@ function PackageFeaturesField({ value, onChange }: { value: FeatureItem[]; onCha
   );
 }
 
+function useAlbumOptions() {
+  const [albums, setAlbums] = useState<Item[]>([]);
+  useEffect(() => {
+    fetch("/api/admin/galleryAlbums").then(r => r.json()).then(data => setAlbums(data.items || []));
+  }, []);
+  return albums;
+}
+
 function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
+  const albums = useAlbumOptions();
   const [album, setAlbum] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
@@ -128,13 +137,13 @@ function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
     <div style={{ background: "#111", border: "1px solid #2A2A2A", borderRadius: 8, padding: 20, marginBottom: 24 }}>
       <label style={labelStyle}>Bulk Upload Photos</label>
       <p style={{ color: "#777", fontSize: "0.8rem", marginBottom: 12 }}>Select multiple photos at once — each becomes its own gallery item (this never replaces existing photos).</p>
-      <input
-        type="text"
-        placeholder="Album name (optional — groups these photos into a shareable sub-gallery)"
-        value={album}
-        onChange={e => setAlbum(e.target.value)}
-        style={{ ...inputStyle, marginBottom: 12 }}
-      />
+      <select value={album} onChange={e => setAlbum(e.target.value)} style={{ ...inputStyle, marginBottom: 12 }}>
+        <option value="">No album (general photos)</option>
+        {albums.map(a => <option key={a._id} value={a.slug}>{a.name}</option>)}
+      </select>
+      {albums.length === 0 && (
+        <p style={{ color: "#888", fontSize: "0.75rem", marginBottom: 12 }}>No albums yet — create one under &quot;Shareable Albums&quot; first if you want to group these photos.</p>
+      )}
       <input
         type="file"
         accept="image/*"
@@ -149,6 +158,7 @@ function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
 }
 
 function RecoverMisplacedPhotos({ onDone }: { onDone: () => void }) {
+  const albums = useAlbumOptions();
   const [ungroupedCount, setUngroupedCount] = useState<number | null>(null);
   const [howMany, setHowMany] = useState("");
   const [targetSlug, setTargetSlug] = useState("");
@@ -202,8 +212,11 @@ function RecoverMisplacedPhotos({ onDone }: { onDone: () => void }) {
           <input type="number" value={howMany} onChange={e => setHowMany(e.target.value)} style={{ ...inputStyle, width: 100 }} />
         </div>
         <div>
-          <label style={labelStyle}>Into album with Link Slug</label>
-          <input type="text" value={targetSlug} onChange={e => setTargetSlug(e.target.value)} placeholder="e.g. smith-wedding" style={{ ...inputStyle, width: 220 }} />
+          <label style={labelStyle}>Into album</label>
+          <select value={targetSlug} onChange={e => setTargetSlug(e.target.value)} style={{ ...inputStyle, width: 220 }}>
+            <option value="">Choose an album...</option>
+            {albums.map(a => <option key={a._id} value={a.slug}>{a.name}</option>)}
+          </select>
         </div>
         <button type="button" onClick={handleAssign} disabled={working} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>
           {working ? "Moving..." : "Move Photos"}
