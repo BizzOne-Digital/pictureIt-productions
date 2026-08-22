@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AlbumPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const album = await findAlbumBySlug(slug);
+  const album = slug.trim() ? await findAlbumBySlug(slug) : null;
 
   if (!album) {
     return (

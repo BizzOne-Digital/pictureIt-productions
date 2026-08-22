@@ -16,11 +16,13 @@ export const dynamic = "force-dynamic";
 export default async function GalleryPage() {
   const [gallery, albums] = await Promise.all([galleryStore.list(), galleryAlbumsStore.list()]);
   const generalPhotos = gallery.filter(g => !g.album);
-  const albumCards = albums.map(a => ({
-    ...a,
-    cover: gallery.find(g => (g.album || "").trim().toLowerCase() === a.slug.trim().toLowerCase())?.url,
-    count: gallery.filter(g => (g.album || "").trim().toLowerCase() === a.slug.trim().toLowerCase()).length,
-  }));
+  const albumCards = albums
+    .filter(a => a.slug && a.slug.trim())
+    .map(a => {
+      const normalizedSlug = a.slug.trim().toLowerCase();
+      const albumPhotos = gallery.filter(g => (g.album || "").trim().toLowerCase() === normalizedSlug);
+      return { ...a, cover: albumPhotos[0]?.url, count: albumPhotos.length };
+    });
 
   return (
     <>

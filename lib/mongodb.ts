@@ -13,7 +13,15 @@ function getClientPromise(): Promise<MongoClient> {
   }
   if (!global._mongoClientPromise) {
     const client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
+    const promise = client.connect();
+    // If the initial connection fails, drop the cached promise so the
+    // next request tries again instead of reusing a permanently-broken one.
+    promise.catch(() => {
+      if (global._mongoClientPromise === promise) {
+        global._mongoClientPromise = undefined;
+      }
+    });
+    global._mongoClientPromise = promise;
   }
   return global._mongoClientPromise;
 }

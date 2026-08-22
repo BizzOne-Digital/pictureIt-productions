@@ -148,6 +148,72 @@ function BulkGalleryUpload({ onDone }: { onDone: () => void }) {
   );
 }
 
+function RecoverMisplacedPhotos({ onDone }: { onDone: () => void }) {
+  const [ungroupedCount, setUngroupedCount] = useState<number | null>(null);
+  const [howMany, setHowMany] = useState("");
+  const [targetSlug, setTargetSlug] = useState("");
+  const [working, setWorking] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("/api/admin/gallery").then(r => r.json()).then(data => {
+      const items: Item[] = data.items || [];
+      const ungrouped = items.filter(p => !p.album || !p.album.trim());
+      setUngroupedCount(ungrouped.length);
+      setHowMany(String(ungrouped.length));
+    });
+  }, []);
+
+  async function handleAssign() {
+    const n = parseInt(howMany, 10);
+    if (!n || n <= 0 || !targetSlug.trim()) return;
+    setWorking(true);
+    setMessage("");
+    const res = await fetch("/api/admin/gallery");
+    const data = await res.json();
+    const items: Item[] = data.items || [];
+    const ungrouped = items.filter(p => !p.album || !p.album.trim());
+    ungrouped.sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+    const toFix = ungrouped.slice(0, n);
+    for (const photo of toFix) {
+      await fetch(`/api/admin/gallery/${photo._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ album: targetSlug.trim() }),
+      });
+    }
+    setWorking(false);
+    setMessage(`Moved ${toFix.length} photo(s) into album "${targetSlug.trim()}".`);
+    onDone();
+  }
+
+  if (ungroupedCount === 0) return null;
+
+  return (
+    <div style={{ background: "#1A140A", border: "1px solid #3A2A10", borderRadius: 8, padding: 20, marginBottom: 24 }}>
+      <label style={{ ...labelStyle, color: "#E0A05C" }}>Recover Misplaced Photos</label>
+      <p style={{ color: "#B99", fontSize: "0.8rem", marginBottom: 12 }}>
+        {ungroupedCount === null ? "Checking..." : `${ungroupedCount} photo(s) currently have no album (they show under "More Photos" on the public Gallery page).`}
+        {" "}If you uploaded photos before saving an album&apos;s Link Slug, they end up here — use this to move them into the correct album without re-uploading.
+      </p>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "flex-end" }}>
+        <div>
+          <label style={labelStyle}>Move the most recent</label>
+          <input type="number" value={howMany} onChange={e => setHowMany(e.target.value)} style={{ ...inputStyle, width: 100 }} />
+        </div>
+        <div>
+          <label style={labelStyle}>Into album with Link Slug</label>
+          <input type="text" value={targetSlug} onChange={e => setTargetSlug(e.target.value)} placeholder="e.g. smith-wedding" style={{ ...inputStyle, width: 220 }} />
+        </div>
+        <button type="button" onClick={handleAssign} disabled={working} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>
+          {working ? "Moving..." : "Move Photos"}
+        </button>
+      </div>
+      {message && <p style={{ color: "#C9A84C", fontSize: "0.8rem", marginTop: 12 }}>{message}</p>}
+    </div>
+  );
+}
+
 function AlbumPhotosManager({ slug }: { slug: string }) {
   const [photos, setPhotos] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
@@ -159,7 +225,8 @@ function AlbumPhotosManager({ slug }: { slug: string }) {
     const res = await fetch("/api/admin/gallery");
     const data = await res.json();
     const all: Item[] = data.items || [];
-    setPhotos(all.filter(p => (p.album || "").trim().toLowerCase() === slug.trim().toLowerCase()));
+    const normalizedSlug = slug.trim().toLowerCase();
+    setPhotos(normalizedSlug ? all.filter(p => (p.album || "").trim().toLowerCase() === normalizedSlug) : []);
     setLoading(false);
   }, [slug]);
 
@@ -269,6 +336,7 @@ export default function AdminCollectionPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Item | null>(null);
   const [saving, setSaving] = useState(false);
+  const [galleryVersion, setGalleryVersion] = useState(0);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -354,7 +422,12 @@ export default function AdminCollectionPage() {
         {!editing && <button onClick={startNew} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>+ Add New</button>}
       </div>
 
-      {collection === "gallery" && !editing && <BulkGalleryUpload onDone={load} />}
+      {collection === "gallery" && !editing && (
+        <>
+          <RecoverMisplacedPhotos key={galleryVersion} onDone={() => { setGalleryVersion(v => v + 1); load(); }} />
+          <BulkGalleryUpload onDone={load} />
+        </>
+      )}
 
       {editing ? (
         <div style={{ background: "#111", border: "1px solid #2A2A2A", borderRadius: 8, padding: 24, maxWidth: 640 }}>
@@ -367,10 +440,12 @@ export default function AdminCollectionPage() {
           {collection === "galleryAlbums" && (
             <div style={{ marginBottom: 18 }}>
               <label style={labelStyle}>Album Photos</label>
-              {editing._id ? (
-                <AlbumPhotosManager slug={editing.slug} />
-              ) : (
+              {!editing._id ? (
                 <p style={{ color: "#888", fontSize: "0.8rem" }}>Click &quot;Save&quot; below first, then you can bulk upload photos for this album right here.</p>
+              ) : !editing.slug || !editing.slug.trim() ? (
+                <p style={{ color: "#E0A05C", fontSize: "0.8rem" }}>Fill in the Link Slug above and click &quot;Save&quot; before uploading photos — without it, uploads can&apos;t be tied to this album.</p>
+              ) : (
+                <AlbumPhotosManager slug={editing.slug.trim()} />
               )}
             </div>
           )}
