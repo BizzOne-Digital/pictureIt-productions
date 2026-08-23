@@ -12,11 +12,18 @@ function serialize<T>(doc: T & { _id: ObjectId; order: number }): WithId<T> {
 function makeStore<T extends Record<string, any>>(collectionName: string, seed: T[]) {
   async function ensureSeeded() {
     const db = await getDb();
+    // Seed at most once ever per collection -- otherwise deleting everything
+    // (e.g. clearing the gallery to start fresh) would keep resurrecting the
+    // original sample data every time the empty collection was read.
+    const metaCol = db.collection<{ _id: string; seeded: boolean }>("_seedMeta");
+    const already = await metaCol.findOne({ _id: collectionName });
+    if (already) return;
     const col = db.collection(collectionName);
     const count = await col.countDocuments();
     if (count === 0 && seed.length > 0) {
       await col.insertMany(seed.map((doc, i) => ({ ...doc, order: i })));
     }
+    await metaCol.updateOne({ _id: collectionName }, { $set: { seeded: true } }, { upsert: true });
   }
 
   async function list(): Promise<WithId<T>[]> {
