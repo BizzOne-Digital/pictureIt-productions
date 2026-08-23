@@ -227,6 +227,41 @@ function RecoverMisplacedPhotos({ onDone }: { onDone: () => void }) {
   );
 }
 
+function ShareableLinkBox({ slug }: { slug: string }) {
+  const [origin, setOrigin] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  if (!origin) return null;
+
+  const link = `${origin}/gallery/album/${encodeURIComponent(slug)}`;
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <div style={{ marginBottom: 18, background: "#161616", border: "1px solid #2A2A2A", borderRadius: 6, padding: 16, display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
+      <img src={`/api/qr?text=${encodeURIComponent(link)}`} alt="QR code" width={110} height={110} style={{ background: "#FFF", borderRadius: 4, padding: 4 }} />
+      <div style={{ flex: 1, minWidth: 200 }}>
+        <label style={labelStyle}>Share This Album (view + let guests upload)</label>
+        <div style={{ display: "flex", gap: 8 }}>
+          <input readOnly value={link} style={{ ...inputStyle, fontSize: "0.75rem" }} onFocus={e => e.target.select()} />
+          <button type="button" onClick={handleCopy} className="btn-outline" style={{ fontSize: "0.75rem", padding: "8px 14px", whiteSpace: "nowrap" }}>
+            {copied ? "Copied!" : "Copy Link"}
+          </button>
+        </div>
+        <p style={{ color: "#777", fontSize: "0.75rem", marginTop: 8 }}>Share this link or QR code with guests — they can view and upload their own photos to this album.</p>
+      </div>
+    </div>
+  );
+}
+
 function AlbumPhotosManager({ slug }: { slug: string }) {
   const [photos, setPhotos] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
@@ -478,6 +513,9 @@ export default function AdminCollectionPage() {
               <Field field={field} value={editing[field.name]} onChange={v => setEditing({ ...editing, [field.name]: v })} />
             </div>
           ))}
+          {collection === "galleryAlbums" && editing._id && editing.slug && editing.slug.trim() && (
+            <ShareableLinkBox slug={editing.slug.trim()} />
+          )}
           {collection === "galleryAlbums" && (
             <div style={{ marginBottom: 18 }}>
               <label style={labelStyle}>Album Photos</label>

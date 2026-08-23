@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { findAlbumBySlug, galleryStore } from "@/lib/content";
 import AlbumUnlockForm from "./AlbumUnlockForm";
+import GuestUploadForm from "./GuestUploadForm";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
           <h1 style={{ fontFamily: "Playfair Display, serif", fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 700, color: "var(--text)" }}>{album.name}</h1>
           <div className="section-divider" />
         </div>
+        <GuestUploadForm slug={slug} />
         {photos.length === 0 ? (
           <p style={{ color: "var(--text-muted)", textAlign: "center" }}>No photos in this album yet.</p>
         ) : (
