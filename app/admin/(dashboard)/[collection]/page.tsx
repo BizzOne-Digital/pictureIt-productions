@@ -350,6 +350,7 @@ export default function AdminCollectionPage() {
   const [editing, setEditing] = useState<Item | null>(null);
   const [saving, setSaving] = useState(false);
   const [galleryVersion, setGalleryVersion] = useState(0);
+  const [deletingAll, setDeletingAll] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -419,6 +420,20 @@ export default function AdminCollectionPage() {
     await load();
   }
 
+  async function handleDeleteAll() {
+    const typed = prompt(`This will permanently delete all ${items.length} item(s) in "${config.title}". This cannot be undone.\n\nType DELETE to confirm:`);
+    if (typed !== "DELETE") return;
+    setDeletingAll(true);
+    try {
+      for (const item of items) {
+        await fetch(`/api/admin/${collection}/${item._id}`, { method: "DELETE" });
+      }
+      await load();
+    } finally {
+      setDeletingAll(false);
+    }
+  }
+
   async function handleReorder(id: string, dir: "up" | "down") {
     await fetch(`/api/admin/${collection}/${id}`, {
       method: "PUT",
@@ -430,9 +445,22 @@ export default function AdminCollectionPage() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, gap: 12, flexWrap: "wrap" }}>
         <h1 style={{ fontFamily: "Playfair Display, serif", fontSize: "1.6rem", fontWeight: 700 }}>{config.title}</h1>
-        {!editing && <button onClick={startNew} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>+ Add New</button>}
+        {!editing && (
+          <div style={{ display: "flex", gap: 12 }}>
+            {items.length > 0 && (
+              <button
+                onClick={handleDeleteAll}
+                disabled={deletingAll}
+                style={{ background: "none", border: "1px solid #5A2A2A", color: "#E05C5C", borderRadius: 4, padding: "10px 18px", fontSize: "0.8rem", cursor: deletingAll ? "default" : "pointer" }}
+              >
+                {deletingAll ? "Deleting..." : `Delete All (${items.length})`}
+              </button>
+            )}
+            <button onClick={startNew} className="btn-gold" style={{ border: "none", cursor: "pointer" }}>+ Add New</button>
+          </div>
+        )}
       </div>
 
       {collection === "gallery" && !editing && (
